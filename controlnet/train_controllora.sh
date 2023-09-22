@@ -1,0 +1,24 @@
+accelerate launch train.py \
+ --cache_dir=".cache" \
+ --pretrained_model_name_or_path="runwayml/stable-diffusion-v1-5" \
+ --output_dir="output/pet_pose" \
+ --dataset_name="multimodalart/dog-poses-controlnet" \
+ --conditioning_image_column=conditioning_image \
+ --image_column=original_image \
+ --caption_column=caption \
+ --resolution=512 \
+ --controllora_linear_rank=64 \
+ --controllora_conv2d_rank=64 \
+ --learning_rate=1e-4 \
+ --validation_image "./docs/imgs/dog_pose_1.jpg" "./docs/imgs/dog_pose_2.jpg" \
+ --validation_prompt "High-quality close-up a brown dog walking through the grass" "a white big dog standing on the grass" \
+ --train_batch_size=4 \
+ --max_train_steps=75000 \
+ --conditioning_type_name=face-landmarks \
+ --tracker_project_name="controllora" \
+ --enable_xformers_memory_efficient_attention \
+ --checkpointing_steps=5000 \
+ --validation_steps=5000 \
+ --report_to wandb \
+ --push_to_hub \
+ --resume_from_checkpoint latest
